@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+    fluentbit:
+        image: grafana/fluent-bit-plugin-loki:latest
+        environment:
+            LOG_PATH: "/var/log/*.log"
+            LOKI_URL: "http://{{logging}}:3100/loki/api/v1/push"
+        volumes:
+            - /var/log:/var/log

@@ -1,0 +1,8 @@
+{% for instance in instances %}
+resource "linode_instance" "{{instance.name}}"{
+    region = "{{instance.region}}"
+    lifecycle {
+        ignore_changes = all
+    }
+}
+{% endfor %}

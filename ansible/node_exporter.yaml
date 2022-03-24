@@ -1,0 +1,47 @@
+- hosts: monitored
+  tasks:
+    - name: Install node exporter
+      shell:
+        cmd: |
+          wget https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
+          tar xzf node_exporter-1.1.2.linux-amd64.tar.gz
+          sudo mv -v node_exporter-1.1.2.linux-amd64/node_exporter /usr/local/bin/
+          sudo chown root:root /usr/local/bin/node_exporter
+
+    - name: Create The app directory for docker compose
+      ansible.builtin.file:
+        path: /app
+        state: directory
+        
+    - name: Copy fluentbit files to server
+      ansible.builtin.copy:
+        src: fluentbit/docker-compose.yaml
+        dest: /app
+
+    - name: Copy service files to server
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /etc/systemd/system
+      loop:
+        - node_exporter/node_exporter.service
+        - fluentbit/fluentbit.service
+    
+    - name: Copy start script to server
+      ansible.builtin.copy:
+        src: start.sh
+        dest: /app
+        mode: u+x,g-x,o-x
+
+    - name: Start services
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - fluentbit
+        - node_exporter
+        
+
+    
+
+    

@@ -1,0 +1,10 @@
+[monitored]
+{% for instance in monitored %}
+{{instance}} ansible_user=root ansible_password=<password>
+{%endfor%}
+
+[monitoring]
+{{monitoring}} ansible_user=root ansible_password=<password>
+
+[logging]
+{{logging}} ansible_user=root ansible_password=<password>

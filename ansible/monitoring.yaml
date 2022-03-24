@@ -1,0 +1,39 @@
+- hosts: monitoring
+  tasks: 
+    - name: Create The app directory for docker compose
+      ansible.builtin.file:
+        path: /app
+        state: directory
+        
+    - name: Copy required files for monitoring
+      ansible.builtin.copy:
+        src: "monitoring/{{ item }}"
+        dest: /app
+      loop:
+        - docker-compose.yaml
+        - alertmanager
+        - prometheus
+        - grafana
+
+    - name: Copy monitoring service file to server
+      ansible.builtin.copy:
+        src: monitoring/monitoring.service
+        dest: /etc/systemd/system
+
+    - name: Copy start script to server
+      ansible.builtin.copy:
+        src: start.sh
+        dest: /app
+        mode: u+x,g-x,o-x
+
+    - name: Start monitoring service
+      service:
+        name: monitoring
+        state: started
+        enabled: yes
+
+    # - name: Restart monitoring service in case of changes
+    #   community.docker.docker_compose:
+    #     project_src: /app
+    #     build: no
+    #     restarted: yes

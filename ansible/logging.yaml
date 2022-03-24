@@ -1,0 +1,29 @@
+- hosts: logging
+  tasks:
+    - name: Create The app directory for docker compose
+      ansible.builtin.file:
+        path: /app
+        state: directory
+    - name: Download Loki
+      shell:
+        cmd: |
+          cd /app
+          wget https://raw.githubusercontent.com/grafana/loki/v2.4.2/production/docker-compose.yaml -O docker-compose.yaml
+    
+    - name: Copy logging service file to server
+      ansible.builtin.copy:
+        src: logging/logging.service
+        dest: /etc/systemd/system
+
+    - name: Copy start script to server
+      ansible.builtin.copy:
+        src: start.sh
+        dest: /app
+        mode: u+x,g-x,o-x
+
+    - name: Start logging service
+      service:
+        name: logging
+        state: started
+        enabled: yes
+
