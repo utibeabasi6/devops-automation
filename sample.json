@@ -1,0 +1,46 @@
+{
+    "receiver": "whatsapp",
+    "status": "firing",
+    "alerts": [
+        {
+            "status": "firing",
+            "labels": {
+                "alertname": "service_down",
+                "instance": "170.187.206.248: 9100",
+                "job": "monitored-1-job",
+                "monitor": "automation-project",
+                "severity": "critical"
+            },
+            "annotations": {
+                "description": "170.187.206.248: 9100 of job monitored-1-job has been down for more than 2 minutes.",
+                "summary": "Instance 170.187.206.248: 9100 down"
+            },
+            "startsAt": "2022-03-25T09: 41: 08.792Z",
+            "endsAt": "0001-01-01T00: 00: 00Z",
+            "generatorURL": "http://b51fb29d521e:9090/graph?g0.expr=up+%3D%3D+0&g0.tab=1",
+            "fingerprint": "3ed3684fe62e7542"
+        }
+    ],
+    "groupLabels": {
+        "alertname": "service_down",
+        "instance": "170.187.206.248:9100",
+        "job": "monitored-1-job",
+        "monitor": "automation-project",
+        "severity": "critical"
+    },
+    "commonLabels": {
+        "alertname": "service_down",
+        "instance": "170.187.206.248:9100",
+        "job": "monitored-1-job",
+        "monitor": "automation-project",
+        "severity": "critical"
+    },
+    "commonAnnotations": {
+        "description": "170.187.206.248:9100 of job monitored-1-job has been down for more than 2 minutes.",
+        "summary": "Instance 170.187.206.248:9100 down"
+    },
+    "externalURL": "http://ccbdff654b59:9093",
+    "version": "4",
+    "groupKey": "{}/{}:{alertname='service_down', instance='170.187.206.248:9100', job='monitored-1-job', monitor='automation-project', severity='critical'}",
+    "truncatedAlerts": 0
+}

@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  promtail:
+    image: grafana/promtail:2.0.0
+    volumes:
+      - /var/log:/var/log
+      - /app/promtail_config.yaml:/etc/promtail/config.yml
+
+      

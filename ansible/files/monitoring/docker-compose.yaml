@@ -56,7 +56,7 @@ services:
   app:
     image: utibeabasi6/monitoring-app
     environment:
-      ACCOUNT_SID: <twilio_accountid>
+      ACCOUNT_SID: <twilio_account_sid>
       AUTH_TOKEN: <twilio_auth_token>
     ports:
       - 5000:5000

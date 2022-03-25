@@ -13,10 +13,13 @@
         path: /app
         state: directory
         
-    - name: Copy fluentbit files to server
+    - name: Copy promtail files to server
       ansible.builtin.copy:
-        src: fluentbit/docker-compose.yaml
+        src: "{{item}}"
         dest: /app
+      loop:
+        - promtail/docker-compose.yaml
+        - promtail/promtail_config.yaml
 
     - name: Copy service files to server
       ansible.builtin.copy:
@@ -24,7 +27,7 @@
         dest: /etc/systemd/system
       loop:
         - node_exporter/node_exporter.service
-        - fluentbit/fluentbit.service
+        - promtail/promtail.service
     
     - name: Copy start script to server
       ansible.builtin.copy:
@@ -38,7 +41,7 @@
         state: started
         enabled: yes
       loop:
-        - fluentbit
+        - promtail
         - node_exporter
         
 
